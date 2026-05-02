@@ -22,14 +22,14 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
       <div className="relative">
-        <div className="w-20 h-20 md:w-28 md:h-28 rounded-xl bg-card border border-border flex items-center justify-center overflow-hidden">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 rounded-xl bg-card border border-border flex items-center justify-center overflow-hidden">
           <motion.span
             key={value}
             initial={{ y: -30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 30, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="text-3xl md:text-5xl font-black tabular-nums text-foreground"
+            className="text-2xl sm:text-3xl md:text-5xl font-black tabular-nums text-foreground"
           >
             {String(value).padStart(2, "0")}
           </motion.span>
@@ -113,7 +113,7 @@ export function HeroSection() {
         {/* Title */}
         <motion.h1
           {...fadeUpProps(1)}
-          className="text-6xl md:text-9xl font-black tracking-tighter leading-none mb-2"
+          className="text-5xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-none mb-2"
         >
           <span
             className="text-transparent bg-clip-text"
@@ -129,7 +129,7 @@ export function HeroSection() {
 
         <motion.p
           {...fadeUpProps(2)}
-          className="text-xl md:text-2xl text-white text-muted-foreground mb-2 tracking-wide"
+          className="text-lg sm:text-xl md:text-2xl text-white/90 mb-4 tracking-wide"
         >
           21.1 KM · HALF MARATHON
         </motion.p>
@@ -137,18 +137,18 @@ export function HeroSection() {
         {/* Meta info */}
         <motion.div
           {...fadeUpProps(3)}
-          className="flex flex-wrap items-center justify-center gap-4 mb-12 text-sm text-white"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 text-sm text-white/90"
         >
           <span className="flex items-center gap-1.5">
             <Calendar className="size-4 text-primary" />
             17 Agustus 2026
           </span>
-          <span className="w-px h-4 bg-border" />
+          <span className="hidden sm:block w-px h-4 bg-border" />
           <span className="flex items-center gap-1.5">
             <MapPin className="size-4 text-primary" />
             Jakarta, Indonesia
           </span>
-          <span className="w-px h-4 bg-border" />
+          <span className="hidden sm:block w-px h-4 bg-border" />
           <span className="flex items-center gap-1.5">
             <Users className="size-4 text-primary" />
             5,000 Runners
@@ -163,13 +163,13 @@ export function HeroSection() {
           <p className="text-xs font-semibold uppercase tracking-widest text-white mb-6">
             Event Starts In
           </p>
-          <div className="flex items-start justify-center gap-3 md:gap-6">
+          <div className="flex items-start justify-center gap-2 sm:gap-4 md:gap-6">
             <CountdownUnit value={time.days} label="Days" />
-            <span className="text-3xl md:text-5xl font-black text-primary mt-4 md:mt-6 select-none">:</span>
+            <span className="text-2xl sm:text-3xl md:text-5xl font-black text-primary mt-3 sm:mt-4 md:mt-6 select-none">:</span>
             <CountdownUnit value={time.hours} label="Hours" />
-            <span className="text-3xl md:text-5xl font-black text-primary mt-4 md:mt-6 select-none">:</span>
+            <span className="text-2xl sm:text-3xl md:text-5xl font-black text-primary mt-3 sm:mt-4 md:mt-6 select-none">:</span>
             <CountdownUnit value={time.minutes} label="Minutes" />
-            <span className="text-3xl md:text-5xl font-black text-primary mt-4 md:mt-6 select-none">:</span>
+            <span className="text-2xl sm:text-3xl md:text-5xl font-black text-primary mt-3 sm:mt-4 md:mt-6 select-none">:</span>
             <CountdownUnit value={time.seconds} label="Seconds" />
           </div>
         </motion.div>

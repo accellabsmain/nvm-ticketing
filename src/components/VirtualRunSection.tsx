@@ -67,9 +67,9 @@ function PaceGauge({ pace }: { pace: number }) {
   const pct = Math.max(0, Math.min(100, ((480 - pace) / (480 - 270)) * 100))
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-1 sm:gap-2">
       {/* Arc gauge */}
-      <div className="relative w-28 h-28">
+      <div className="relative w-20 h-20 sm:w-28 sm:h-28">
         <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
           <circle cx="50" cy="50" r="38" fill="none" stroke="oklch(0.22 0.01 260)" strokeWidth="8" strokeDasharray="190" strokeDashoffset="0" strokeLinecap="round" />
           <circle
@@ -83,13 +83,13 @@ function PaceGauge({ pace }: { pace: number }) {
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-2xl font-black leading-none">{paceStr}</span>
-          <span className="text-xs text-muted-foreground">min/km</span>
+          <span className="text-xl sm:text-2xl font-black leading-none">{paceStr}</span>
+          <span className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">min/km</span>
         </div>
       </div>
       <Badge
         variant="outline"
-        className="text-xs font-semibold"
+        className="text-[10px] sm:text-xs font-semibold px-1.5 sm:px-2.5 py-0 sm:py-0.5"
         style={{ borderColor: color, color }}
       >
         {zone}
@@ -104,9 +104,9 @@ function SplitBar({ split, maxPace }: { split: typeof SPLITS[0]; maxPace: number
   const isGood = paceSeconds < 345
 
   return (
-    <div className="flex items-center gap-2 text-xs">
-      <span className="w-8 text-muted-foreground text-right font-mono">{split.km}km</span>
-      <div className="flex-1 h-4 bg-muted rounded-sm overflow-hidden">
+    <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs">
+      <span className="w-6 sm:w-8 text-muted-foreground text-right font-mono">{split.km}km</span>
+      <div className="flex-1 h-3 sm:h-4 bg-muted rounded-sm overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           whileInView={{ width: `${pct}%` }}
@@ -118,8 +118,8 @@ function SplitBar({ split, maxPace }: { split: typeof SPLITS[0]; maxPace: number
           }}
         />
       </div>
-      <span className="w-10 font-mono font-medium">{split.pace}</span>
-      <span className="w-8 text-muted-foreground font-mono">{split.hr}</span>
+      <span className="w-8 sm:w-10 font-mono font-medium text-right sm:text-left">{split.pace}</span>
+      <span className="w-6 sm:w-8 text-muted-foreground font-mono text-right sm:text-left">{split.hr}</span>
     </div>
   )
 }
@@ -186,23 +186,25 @@ function VirtualTracker() {
       <Separator />
       <CardContent className="pt-4 space-y-4">
         {/* Main stats */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {/* Timer */}
-          <div className="flex flex-col items-center p-3 rounded-xl bg-muted/60 border border-border">
-            <Timer className="size-4 text-muted-foreground mb-1" />
-            <span className="text-2xl font-black font-mono tabular-nums">{timeStr}</span>
-            <span className="text-xs text-muted-foreground">Time</span>
+          <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-muted/60 border border-border justify-center">
+            <Timer className="size-3 sm:size-4 text-muted-foreground mb-1" />
+            <span className="text-base sm:text-xl md:text-2xl font-black font-mono tabular-nums leading-none">{timeStr}</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground mt-1">Time</span>
           </div>
 
           {/* Distance */}
-          <div className="flex flex-col items-center p-3 rounded-xl bg-muted/60 border border-border">
-            <Navigation className="size-4 text-muted-foreground mb-1" />
-            <span className="text-2xl font-black tabular-nums">{distance.toFixed(2)}</span>
-            <span className="text-xs text-muted-foreground">km</span>
+          <div className="flex flex-col items-center p-2 sm:p-3 rounded-xl bg-muted/60 border border-border justify-center">
+            <Navigation className="size-3 sm:size-4 text-muted-foreground mb-1" />
+            <span className="text-base sm:text-xl md:text-2xl font-black tabular-nums leading-none">{distance.toFixed(2)}</span>
+            <span className="text-[10px] sm:text-xs text-muted-foreground mt-1">km</span>
           </div>
 
           {/* Pace gauge */}
-          <PaceGauge pace={pace} />
+          <div className="flex items-center justify-center">
+            <PaceGauge pace={pace} />
+          </div>
         </div>
 
         {/* Distance progress */}
@@ -266,25 +268,25 @@ export function VirtualRunSection() {
   const maxPace = Math.max(...SPLITS.map((s) => parseInt(s.pace.split(":")[0]) * 60 + parseInt(s.pace.split(":")[1])))
 
   return (
-    <section id="virtual" className="py-24 px-6 max-w-7xl mx-auto" ref={ref}>
+    <section id="virtual" className="py-16 md:py-24 px-4 sm:px-6 max-w-7xl mx-auto" ref={ref}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        className="text-center mb-12 sm:mb-16"
       >
         <Badge variant="outline" className="border-primary/40 text-primary bg-primary/10 mb-4 uppercase tracking-widest text-xs">
           Virtual Run
         </Badge>
-        <h2 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight mb-4">
           Run Anywhere, Track Everything
         </h2>
-        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <p className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto">
           Can't make it in-person? Join the virtual division — run your 21.1km anywhere in the world and track your performance in real time.
         </p>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-10 items-start">
+      <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
         {/* Tracker demo */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
